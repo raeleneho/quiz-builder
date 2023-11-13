@@ -27,7 +27,7 @@ export function BlockEditor({ stepId }: BlockEditorProps) {
   if (!block) return <></>;
   return (
     <>
-      <div className="side-bar-right">
+      <div>
         {Object.keys(stepEditorContext?.block?.data ?? {}).map((key) => {
           return (
             <Flex alignItems="center" justifyContent="center">
@@ -61,7 +61,6 @@ export function BlockEditor({ stepId }: BlockEditorProps) {
             Save
           </Button>
         )}
-        {/* <Tabs /> */}
       </div>
     </>
   );
