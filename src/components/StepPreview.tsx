@@ -7,7 +7,7 @@ import { BlockInserter } from "./BlockInserter";
 
 import { blockLibrary } from "./blocks/BlockLibrary";
 import { useStepEditorContext } from "../pages/StepEditor/StepEditorContext";
-import { Flex, HStack, VStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, VStack } from "@chakra-ui/react";
 
 interface BlockRendererProps {
   // block.id?: string;
@@ -52,7 +52,7 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
         return (
           <>
             <VStack>
-              <Flex
+              <Box
                 color="white"
                 className={`${
                   stepEditorContext?.selectedBlockId === block?.id
@@ -63,11 +63,14 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
                   stepEditorContext?.setSelectedBlockId(block?.id ?? "")
                 }
               >
+             
+
                 <BlockRenderer
                   block={isSelected ? stepEditorContext?.block : block}
                   isSelected={isSelected}
                 />
-              </Flex>
+              
+              </Box>
               <BlockInserter
                 position={index}
                 stepId={step?.id ?? ""}

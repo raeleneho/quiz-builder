@@ -1,5 +1,7 @@
 // import React from "react";
 
+import { Flex } from "@chakra-ui/react";
+
 interface TextareaBlockProps {
   label: string;
   placeholder: string;
@@ -12,14 +14,14 @@ export const TextareaBlock = ({
   placeholder,
 }: TextareaBlockProps): JSX.Element => {
   return (
-    <div className="textarea">
-      <label htmlFor="example">{label}</label>
+    <Flex>
+      {label && <label>{label}</label>}
       <textarea
         name="example"
         id="example"
         value=""
         placeholder={placeholder}
       ></textarea>
-    </div>
+    </Flex>
   );
 };

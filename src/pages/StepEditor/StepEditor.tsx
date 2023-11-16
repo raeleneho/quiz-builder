@@ -8,12 +8,13 @@ import { BlockEditor } from "../../components/blocks/BlockEditor";
 import StepPreview from "../../components/StepPreview";
 import { StepEditorProvider } from "./StepEditorContext";
 import Tabs from "../../components/Tabs/Tabs";
-import Tab from "../../components/Tabs/TabTitle";
-import { Divider, Flex } from "@chakra-ui/react";
+
+import { Box, Divider, Flex, HStack } from "@chakra-ui/react";
 import TabTitle from "../../components/Tabs/TabTitle";
 import TabContent from "../../components/Tabs/TabContent";
 import StepSettings from "../../components/StepSettings";
 import { useTabsContext } from "../../components/Tabs/TabsContext";
+import Tab from "../../components/Tabs/Tab";
 
 function StepEditor() {
   const { quizId, stepId } = useParams();
@@ -33,35 +34,47 @@ function StepEditor() {
   });
 
   const tabsData = [
-    { id: "1", title: "Step Settings", component: <StepSettings /> },
+    {
+      id: "1",
+      title: "Step Settings",
+      component: () => {
+        <StepSettings />;
+      },
+    },
     {
       id: "2",
       title: "Block Settings",
-      component: <BlockEditor stepId={stepId ?? ""} />,
+      component: () => <BlockEditor stepId={stepId ?? ""} />,
     },
     { id: "3", title: "Data" },
   ];
 
   return (
-    <div>
+    <Box w="100%">
       <StepEditorProvider stepId={stepId}>
         <>
           <StepPreview step={step} quizId={quizId ?? ""} />
 
           <Tabs>
-            <Flex justify="flex-start" gap={1}>
-              {tabsData.map((tab) => (
+            <Flex>
+              {tabsData.map(({ id, title }) => (
                 <>
-                  <TabTitle key={tab.id} {...tab} />
+                  <Tab key={id} id={id}>
+                    {title}
+                  </Tab>
                 </>
               ))}
             </Flex>
-            <TabContent content={tabsData} />
+
+            {tabsData.map(({ id, component: TabComponent }) => (
+              <>
+                <TabContent id={id}>{TabComponent}</TabContent>
+              </>
+            ))}
           </Tabs>
-          {/* <BlockEditor stepId={stepId ?? ""} /> */}
         </>
       </StepEditorProvider>
-    </div>
+    </Box>
   );
 }
 
