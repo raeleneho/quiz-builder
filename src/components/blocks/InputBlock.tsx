@@ -14,8 +14,8 @@ export const InputBlock = ({
 }: InputBlockProps) => {
   const stepEditorContext = useStepEditorContext();
   return (
-    <Flex>
-      {label && <label>{label}</label>}
+    <Flex alignItems="center" gap="2" p={2}>
+      {label && <label className="form-label">{label}</label>}
 
       <FormInput
         {...defaultAttrs}

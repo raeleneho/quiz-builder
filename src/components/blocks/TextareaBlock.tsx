@@ -1,6 +1,6 @@
 // import React from "react";
 
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex, Spacer } from "@chakra-ui/react";
 
 interface TextareaBlockProps {
   label: string;
@@ -14,14 +14,16 @@ export const TextareaBlock = ({
   placeholder,
 }: TextareaBlockProps): JSX.Element => {
   return (
-    <Flex>
-      {label && <label>{label}</label>}
+    <Flex alignItems="center" justify='space-between' p={2}>
+      {label ? <label>{label}</label> :   <Spacer />}
+  
       <textarea
         name="example"
         id="example"
         value=""
         placeholder={placeholder}
       ></textarea>
+    
     </Flex>
   );
 };

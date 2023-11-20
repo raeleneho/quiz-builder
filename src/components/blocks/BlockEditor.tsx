@@ -24,10 +24,10 @@ interface BlockEditorProps {
 export function BlockEditor({ stepId }: BlockEditorProps) {
   const stepEditorContext = useStepEditorContext();
   const block = stepEditorContext?.block;
-  if (!block) return <></>;
+  if (!block) return <>Select a block</>;
   return (
     <>
-      <div>
+      <div className="block-editor">
         {Object.keys(stepEditorContext?.block?.data ?? {}).map((key) => {
           return (
             <Flex alignItems="center" justifyContent="center">

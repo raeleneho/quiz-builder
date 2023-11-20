@@ -27,13 +27,14 @@ export const BlockInserter = ({
     BlockClient.createBlock(newBlock);
   };
 
+
   return (
     <>
       <div className="inserter">
-        <div
+        {/* <div
           className="inserter-icon"
           onClick={() => setModalIsOpen(!modalIsOpen)}
-        />
+        /> */}
       </div>
       {modalIsOpen && (
         <div className="modal">

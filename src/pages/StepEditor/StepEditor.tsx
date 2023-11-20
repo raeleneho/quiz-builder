@@ -37,16 +37,14 @@ function StepEditor() {
     {
       id: "1",
       title: "Step Settings",
-      component: () => {
-        <StepSettings />;
-      },
+      component: () => <StepSettings />,
     },
     {
       id: "2",
       title: "Block Settings",
       component: () => <BlockEditor stepId={stepId ?? ""} />,
     },
-    { id: "3", title: "Data" },
+    { id: "3", title: "Data", component: () => <></> },
   ];
 
   return (
@@ -68,7 +66,9 @@ function StepEditor() {
 
             {tabsData.map(({ id, component: TabComponent }) => (
               <>
-                <TabContent id={id}>{TabComponent}</TabContent>
+                <TabContent id={id}>
+                  <TabComponent />
+                </TabContent>
               </>
             ))}
           </Tabs>
