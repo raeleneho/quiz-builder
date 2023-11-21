@@ -1,13 +1,30 @@
-import { useQueries } from "@tanstack/react-query";
-import { Block, BlockClient, blockRoute } from "../../api/BlockClient";
-import { Step } from "../../api/StepClient";
+import { useQueries } from '@tanstack/react-query';
+import { Block, BlockClient, blockRoute } from '../../api/BlockClient';
+import { Step } from '../../api/StepClient';
 
 // import { BlockRenderer } from "../pages/StepEditor";
-import { BlockInserter } from "./BlockInserter";
+import { BlockInserter } from './BlockInserter';
 
-import { blockLibrary } from "./blocks/BlockLibrary";
-import { useStepEditorContext } from "../pages/StepEditor/StepEditorContext";
-import { Box, Container, Flex, HStack, VStack } from "@chakra-ui/react";
+import { blockLibrary } from './blocks/BlockLibrary';
+import { useStepEditorContext } from '../pages/StepEditor/StepEditorContext';
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
+  Portal,
+  VStack,
+} from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
 
 interface BlockRendererProps {
   // block.id?: string;
@@ -32,6 +49,8 @@ interface StepPreviewProps {
 
 function StepPreview({ step, quizId }: StepPreviewProps) {
   const stepEditorContext = useStepEditorContext();
+  const [hoveredBlockId, setHoveredBlockId] = useState<string | null>(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const blocksRes = useQueries({
     queries:
@@ -39,7 +58,7 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
         return {
           queryKey: [blockRoute, blockId],
           queryFn: async () => {
-            return BlockClient.getBlock({ blockId, stepId: step?.id ?? "" });
+            return BlockClient.getBlock({ blockId, stepId: step?.id ?? '' });
           },
         };
       }) ?? [],
@@ -51,40 +70,49 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
         const isSelected = stepEditorContext?.selectedBlockId === block?.id;
         return (
           <>
-          <Container>
+            <Container>
+              <VStack w="30%" py={4}>
+                <Box
+                  w="20vw"
+                  color="white"
+                  className={`${
+                    stepEditorContext?.selectedBlockId === block?.id || stepEditorContext?.selectedBlockId === hoveredBlockId
+                      ? 'content-block-hightlight'
+                      : ''
+                  }`}
+                  onClick={() => stepEditorContext?.setSelectedBlockId(block?.id ?? '')}
+                  onMouseEnter={() => setHoveredBlockId(block?.id ?? '')}
+                  onMouseLeave={() => setHoveredBlockId(null)}
+                >
+                  <BlockRenderer block={isSelected ? stepEditorContext?.block : block} isSelected={isSelected} />
+                </Box>
 
-            <VStack w="30%" py={4}>
-              <Box w="20vw"
-                color="white"
-                className={`${
-                  stepEditorContext?.selectedBlockId === block?.id
-                    ? "content-block-hightlight"
-                    : ""
-                }`}
-                onClick={() =>
-                  stepEditorContext?.setSelectedBlockId(block?.id ?? "")
-                }
-              >
-                
-                <div
-           className={stepEditorContext?.selectedBlockId === block?.id ?  "inserter-icon" : ''}
-         
-        />
-     
+                {stepEditorContext?.selectedBlockId === block?.id && (
+                  <Popover>
+                    <PopoverTrigger>
+                      <IconButton
+                        className="inserter-icon"
+                        isRound={true}
+                        colorScheme="teal"
+                        aria-label="insert new block"
+                        fontSize="12px"
+                        size="sm"
+                        icon={<AddIcon />}
+                      />
+                    </PopoverTrigger>
 
-                <BlockRenderer
-                  block={isSelected ? stepEditorContext?.block : block}
-                  isSelected={isSelected}
-                />
-              
-              </Box>
-              <BlockInserter
-                position={index}
-                stepId={step?.id ?? ""}
-                quizId={quizId ?? ""}
-              />
-            </VStack>
-          </Container>
+                    <PopoverContent>
+                      <PopoverArrow />
+                      <PopoverHeader>Select block type:</PopoverHeader>
+                      <PopoverCloseButton />
+                      <PopoverBody>
+                        <BlockInserter position={index} stepId={step?.id ?? ''} quizId={quizId ?? ''} />
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                )}
+              </VStack>
+            </Container>
           </>
         );
       })}
