@@ -99,23 +99,32 @@
   gap: 1em;
 }
 
-.inserter {
-  border-top: 2px solid blue;
-  /* position: relative; */
-}
-
 .content-block-hightlight {
   border: 2px solid #4fb9af;
   color: white;
+  /* position: relative; */
+}
+
+.content-block {
   position: relative;
 }
-.inserter-icon {
+
+.content-block:hover {
+  border: 3px solid #4fb9af;
+}
+
+.content-block:hover .inserter-icon {
+  display: block !important;
   position: absolute;
   z-index: 1;
-  transform: translate(-50%, -10%);
-  left: 0;
-  bottom: 20px;
+  transform: translate(-50%, 50%);
+  left: 50%;
+  bottom: 0;
   cursor: pointer;
+}
+
+.inserter-icon {
+  display: none !important;
 }
 
 .opaque-background {

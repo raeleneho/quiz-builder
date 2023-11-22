@@ -61,14 +61,6 @@ function StepEditor() {
     { id: '3', title: 'Data', component: () => <></> },
   ];
 
-  // const AddBlockBtn = () => {
-  //   return (
-  //     <Button colorScheme="teal" aria-label="add block">
-  //       Add Block
-  //     </Button>
-  //   );
-  // };
-
   return (
     <>
       <StepEditorProvider stepId={stepId}>

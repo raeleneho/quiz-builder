@@ -9,7 +9,6 @@ import { blockLibrary } from './blocks/BlockLibrary';
 import { useStepEditorContext } from '../pages/StepEditor/StepEditorContext';
 import {
   Box,
-  Button,
   Container,
   IconButton,
   Popover,
@@ -17,14 +16,11 @@ import {
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
-  Portal,
   VStack,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
 
 interface BlockRendererProps {
   // block.id?: string;
@@ -49,8 +45,6 @@ interface StepPreviewProps {
 
 function StepPreview({ step, quizId }: StepPreviewProps) {
   const stepEditorContext = useStepEditorContext();
-  const [hoveredBlockId, setHoveredBlockId] = useState<string | null>(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const blocksRes = useQueries({
     queries:
@@ -75,19 +69,11 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
                 <Box
                   w="20vw"
                   color="white"
-                  className={`${
-                    stepEditorContext?.selectedBlockId === block?.id || stepEditorContext?.selectedBlockId === hoveredBlockId
-                      ? 'content-block-hightlight'
-                      : ''
-                  }`}
+                  className={`content-block ${isSelected ? 'content-block-hightlight' : ''}`}
                   onClick={() => stepEditorContext?.setSelectedBlockId(block?.id ?? '')}
-                  onMouseEnter={() => setHoveredBlockId(block?.id ?? '')}
-                  onMouseLeave={() => setHoveredBlockId(null)}
                 >
                   <BlockRenderer block={isSelected ? stepEditorContext?.block : block} isSelected={isSelected} />
-                </Box>
 
-                {stepEditorContext?.selectedBlockId === block?.id && (
                   <Popover>
                     <PopoverTrigger>
                       <IconButton
@@ -110,7 +96,7 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
                       </PopoverBody>
                     </PopoverContent>
                   </Popover>
-                )}
+                </Box>
               </VStack>
             </Container>
           </>
