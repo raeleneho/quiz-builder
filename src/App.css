@@ -7,7 +7,7 @@
   font-family: 'Source Sance Pro', sans-serif;
   background: #141b2d;
 }
-
+/* 
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -34,6 +34,10 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
+} */
+
+.container {
+  positive: relative;
 }
 
 .card {
@@ -41,14 +45,17 @@
   background-color: #888;
 }
 
-.read-the-docs {
-  color: #888;
+.step-editor {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.side-bar {
+.sidebar {
   height: 100vh;
   background: white;
-  left: 0;
   top: 0;
   min-width: 30%;
   display: flex;
@@ -58,19 +65,47 @@
   gap: 1em;
 }
 
-.side-bar-right {
-  height: 100vh;
-  background: white;
-  position: absolute;
-  z-index: 1;
+.left-sidebar {
+  left: 0;
+}
+
+.right-sidebar {
   right: 0;
-  top: 0;
-  min-width: 25%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  color: black;
-  padding: 2em 0.2em;
-  /* gap: 1em; */
+}
+
+/* .tabs-divider {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  transform: translateY(30%);
+} */
+
+.tab-button-selected {
+  font-weight: bold !important;
+  transition: background 0.3s ease-in-out;
+}
+.tab-button {
+  border-color: none !important;
+  color: rgb(43, 42, 42);
+  font-size: 0.9em;
+  font-weight: normal;
+  cursor: pointer;
+  padding: 0.5em;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.tab-button:hover {
+  color: #4fb9af;
+  background: none !important;
+  border-color: none !important;
+}
+
+.tabs-content {
+  flex-grow: 1;
 }
 
 .modal {
@@ -99,18 +134,25 @@
   gap: 1em;
 }
 
-.content-block-hightlight {
-  border: 2px solid #4fb9af;
-  color: white;
-  /* position: relative; */
-}
-
 .content-block {
   position: relative;
+  border: 3px solid transparent; /* Set a transparent border initially */
+  transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.content-block-hightlight {
+  border: 3px solid #4fb9af;
+
+  color: white;
+  transition: transform 0.3s ease-in-out;
 }
 
 .content-block:hover {
   border: 3px solid #4fb9af;
+}
+
+.inserter-icon {
+  display: none !important;
+  transition: transform 0.3s ease-in-out;
 }
 
 .content-block:hover .inserter-icon {
@@ -121,10 +163,6 @@
   left: 50%;
   bottom: 0;
   cursor: pointer;
-}
-
-.inserter-icon {
-  display: none !important;
 }
 
 .opaque-background {

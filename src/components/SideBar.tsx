@@ -25,7 +25,7 @@ function SideBar() {
 
   return (
     <>
-      <div className="side-bar">
+      <div className="sidebar left-sidebar">
         <Button variant="outline" borderColor={'teal.500'} onClick={() => generateQuiz()}>
           + Add a quiz!
         </Button>
@@ -63,7 +63,7 @@ function QuizSideBarItem({ quiz }: { quiz: Quiz }) {
   return (
     <VStack align="stretch" spacing={3}>
       <Flex>
-        <Button colorScheme="teal" variant="link">
+        <Button pr={2} colorScheme="teal" variant="link">
           <NavLink to={`/quizzes/${quiz.id}/`}>{quiz.name}</NavLink>
         </Button>
         <Spacer />

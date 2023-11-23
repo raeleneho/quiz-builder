@@ -60,48 +60,45 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
 
   return (
     <>
-      {blocksRes?.map(({ data: block }, index: number) => {
-        const isSelected = stepEditorContext?.selectedBlockId === block?.id;
-        return (
-          <>
-            <Container>
-              <VStack w="30%" py={4}>
-                <Box
-                  w="20vw"
-                  color="white"
-                  className={`content-block ${isSelected ? 'content-block-hightlight' : ''}`}
-                  onClick={() => stepEditorContext?.setSelectedBlockId(block?.id ?? '')}
-                >
-                  <BlockRenderer block={isSelected ? stepEditorContext?.block : block} isSelected={isSelected} />
+      <VStack py={4}>
+        {blocksRes?.map(({ data: block }, index: number) => {
+          const isSelected = stepEditorContext?.selectedBlockId === block?.id;
+          return (
+            <Box
+              w="20vw"
+              p={1}
+              color="white"
+              className={`content-block ${isSelected ? 'content-block-hightlight' : ''}`}
+              onClick={() => stepEditorContext?.setSelectedBlockId(block?.id ?? '')}
+            >
+              <BlockRenderer block={isSelected ? stepEditorContext?.block : block} isSelected={isSelected} />
 
-                  <Popover>
-                    <PopoverTrigger>
-                      <IconButton
-                        className="inserter-icon"
-                        isRound={true}
-                        colorScheme="teal"
-                        aria-label="insert new block"
-                        fontSize="12px"
-                        size="sm"
-                        icon={<AddIcon />}
-                      />
-                    </PopoverTrigger>
+              <Popover>
+                <PopoverTrigger>
+                  <IconButton
+                    className="inserter-icon"
+                    isRound={true}
+                    colorScheme="teal"
+                    aria-label="insert new block"
+                    fontSize="12px"
+                    size="sm"
+                    icon={<AddIcon />}
+                  />
+                </PopoverTrigger>
 
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverHeader>Select block type:</PopoverHeader>
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <BlockInserter position={index} stepId={step?.id ?? ''} quizId={quizId ?? ''} />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
-                </Box>
-              </VStack>
-            </Container>
-          </>
-        );
-      })}
+                <PopoverContent>
+                  <PopoverArrow />
+                  <PopoverHeader>Select block type:</PopoverHeader>
+                  <PopoverCloseButton />
+                  <PopoverBody>
+                    <BlockInserter position={index} stepId={step?.id ?? ''} quizId={quizId ?? ''} />
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
+            </Box>
+          );
+        })}
+      </VStack>
     </>
   );
 }
