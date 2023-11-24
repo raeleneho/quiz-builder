@@ -1,24 +1,48 @@
-import {
-  Flex,
-  Heading,
-  Spacer,
-  ButtonGroup,
-  Button,
-  Box,
-} from "@chakra-ui/react";
-// import { Box } from "framer-motion";
+import { Flex, Button, FormLabel } from '@chakra-ui/react';
+import StepClient, { Step } from '../../api/StepClient';
 
-function StepSettings() {
+import { FormInput } from './FormInput';
+import { useState } from 'react';
+
+interface StepSettingsProps {
+  step?: Step | null;
+  quizId: string;
+}
+
+function StepSettings({ step, quizId }: StepSettingsProps) {
+  const [stepName, setStepName] = useState(step?.name ?? '');
   return (
-    <Flex minWidth="max-content" alignItems="center" gap="2">
-      <Box p="2">
-        <Heading size="md">Chakra App</Heading>
-      </Box>
-      <Spacer />
-      <ButtonGroup gap="2">
-        <Button colorScheme="teal">Sign Up</Button>
-        <Button colorScheme="teal">Log in</Button>
-      </ButtonGroup>
+    <Flex alignItems="center" gap="2">
+      <FormLabel mb={0} fontSize="sm">
+        Step Name:
+      </FormLabel>
+      <FormInput
+        width="auto"
+        size="sm"
+        variant="outline"
+        boxShadow="sm"
+        rounded="md"
+        value={stepName}
+        onChange={(e) => setStepName(e.target.value)}
+      />
+
+      <Button
+        aria-label="update step"
+        colorScheme="teal"
+        fontSize="16px"
+        size="sm"
+        onClick={() => {
+          if (step) {
+            StepClient.updateStep({
+              ...step,
+              name: stepName,
+              quizId,
+            });
+          }
+        }}
+      >
+        save
+      </Button>
     </Flex>
   );
 }

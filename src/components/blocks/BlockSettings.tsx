@@ -1,39 +1,35 @@
 // dynamic props - block id, block type, block data
 // make getblock request
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  HStack,
-  Radio,
-  RadioGroup,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, FormLabel } from '@chakra-ui/react';
 
-import { BlockClient } from "../../../api/BlockClient";
-import { useStepEditorContext } from "../../pages/StepEditor/StepEditorContext";
-import Tabs from "../Tabs/Tabs";
-import { FormInput } from "../FormInput";
+import { BlockClient } from '../../../api/BlockClient';
+import { useStepEditorContext } from '../../pages/StepEditor/StepEditorContext';
+
+import { FormInput } from '../FormInput';
 
 interface BlockEditorProps {
-  // blockId: string;
   stepId: string;
 }
 
-export function BlockEditor({ stepId }: BlockEditorProps) {
+export function BlockSettings({ stepId }: BlockEditorProps) {
   const stepEditorContext = useStepEditorContext();
   const block = stepEditorContext?.block;
   if (!block) return <>Select a block</>;
   return (
     <>
-      <div className="block-editor">
+      <Box maxW="350px" display="flex" flexDirection="column" gap={2}>
         {Object.keys(stepEditorContext?.block?.data ?? {}).map((key) => {
           return (
-            <Flex alignItems="center" justifyContent="center">
-              <FormLabel>{key}</FormLabel>
+            <Flex alignItems="center" justify="space-between" gap="2">
+              <FormLabel fontSize="sm" mb={0}>
+                {key}:
+              </FormLabel>
               <FormInput
+                width="auto"
+                size="sm"
                 variant="outline"
+                boxShadow="sm"
+                rounded="md"
                 value={stepEditorContext?.block?.data[key]}
                 onChange={(e) => {
                   stepEditorContext?.block &&
@@ -51,6 +47,10 @@ export function BlockEditor({ stepId }: BlockEditorProps) {
         })}
         {stepEditorContext?.block && (
           <Button
+            aria-label="update block"
+            colorScheme="teal"
+            fontSize="16px"
+            size="sm"
             onClick={() =>
               BlockClient.updateBlock({
                 stepId,
@@ -61,7 +61,7 @@ export function BlockEditor({ stepId }: BlockEditorProps) {
             Save
           </Button>
         )}
-      </div>
+      </Box>
     </>
   );
 }

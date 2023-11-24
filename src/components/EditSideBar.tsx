@@ -1,27 +1,30 @@
 import TabContent from './Tabs/TabContent';
 import StepSettings from './StepSettings';
-import { BlockEditor } from './blocks/BlockEditor';
+import { BlockSettings } from './blocks/BlockSettings';
 import Tabs from './Tabs/Tabs';
 import Tab from './Tabs/Tab';
-import { Button, Divider, Flex } from '@chakra-ui/react';
+import { Divider, Flex } from '@chakra-ui/react';
+import { Step } from '../../api/StepClient';
+import DataDisplay from './DataDisplay';
 
 interface EditSideBarProps {
-  stepId: string;
+  step?: Step | null;
+  quizId: string;
 }
 
-export function EditSideBar({ stepId }: EditSideBarProps) {
+export function EditSideBar({ step, quizId }: EditSideBarProps) {
   const tabsData = [
     {
       id: '1',
       title: 'Step Settings',
-      component: () => <StepSettings />,
+      component: () => <StepSettings step={step} quizId={quizId} />,
     },
     {
       id: '2',
       title: 'Block Settings',
-      component: () => <BlockEditor stepId={stepId ?? ''} />,
+      component: () => <BlockSettings stepId={step?.id ?? ''} />,
     },
-    { id: '3', title: 'Data', component: () => <></> },
+    { id: '3', title: 'Data', component: () => <DataDisplay /> },
   ];
 
   return (
@@ -49,9 +52,9 @@ export function EditSideBar({ stepId }: EditSideBarProps) {
         </div>
       </Tabs>
 
-      <Button colorScheme="teal" aria-label="save changes" onClick={() => {}}>
+      {/* <Button colorScheme="teal" aria-label="save changes" onClick={() => {}}>
         Save
-      </Button>
+      </Button> */}
     </div>
   );
 }

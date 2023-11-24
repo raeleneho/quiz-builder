@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import StepPreview from '../../components/StepPreview';
 import { StepEditorProvider } from './StepEditorContext';
 
-import { Box, Button, Container, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 
 import { BlockClient, BlockType } from '../../../api/BlockClient';
 import { blockLibrary } from '../../components/blocks/BlockLibrary';
@@ -63,7 +63,7 @@ function StepEditor() {
           </Box>
         </Box>
 
-        <EditSideBar stepId={stepId ?? ''} />
+        <EditSideBar step={step} quizId={quizId ?? ''} />
       </StepEditorProvider>
     </>
   );

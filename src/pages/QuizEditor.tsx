@@ -1,27 +1,15 @@
-import { useParams } from "react-router-dom";
-import QuizClient, { Quiz, quizRoute } from "../../api/QuizClient";
-import { useQuery } from "@tanstack/react-query";
-import { InputBlock } from "../blocks/InputBlock";
-import { useState } from "react";
-import { FormInput } from "../components/FormInput";
+import { useParams } from 'react-router-dom';
+import QuizClient, { Quiz, quizRoute } from '../../api/QuizClient';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { FormInput } from '../components/FormInput';
 
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Flex,
-  HStack,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Container, HStack } from '@chakra-ui/react';
 function QuizEditor() {
   const { quizId } = useParams();
   const [quiz, setQuiz] = useState<Quiz | null>();
 
-  const updateQuiz = (
-    propertyName: keyof Quiz,
-    value: Quiz[typeof propertyName]
-  ) => {
+  const updateQuiz = (propertyName: keyof Quiz, value: Quiz[typeof propertyName]) => {
     if (quiz) {
       setQuiz({
         ...quiz,
@@ -33,7 +21,7 @@ function QuizEditor() {
   const { data: quizRes } = useQuery({
     queryKey: [quizRoute, quizId],
     queryFn: async () => {
-      const quiz = await QuizClient.getQuiz(quizId ?? "");
+      const quiz = await QuizClient.getQuiz(quizId ?? '');
       setQuiz(quiz);
       return quiz;
     },
@@ -41,12 +29,9 @@ function QuizEditor() {
   });
 
   return (
-    <Container centerContent p={6}>
+    <Container centerContent py={10}>
       <HStack>
-        <FormInput
-          value={quiz?.name ?? ""}
-          onChange={(e) => updateQuiz("name", e.target.value)}
-        />
+        <FormInput value={quiz?.name ?? ''} onChange={(e) => updateQuiz('name', e.target.value)} />
 
         <Button
           aria-label="update quiz"
