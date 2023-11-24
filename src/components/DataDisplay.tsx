@@ -11,7 +11,7 @@ function DataDisplay() {
         </Text>
       </Flex>
 
-      {Object.keys(stepEditorContext?.block?.data ?? {}).map((key, value) => {
+      {Object.entries(stepEditorContext?.block?.data ?? {}).map(([key, value]) => {
         return (
           <Box key={key} display="flex" pl={6}>
             <Text>{`"${key}": "${value}",`}</Text>
