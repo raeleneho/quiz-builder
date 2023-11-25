@@ -21,21 +21,9 @@ interface PopoverProps {
   quizId?: string;
   stepId?: string;
   triggerIcon?: boolean;
-  // children: ReactNode | ReactNode[];
 }
 
 function NewBlockPopoverModal({ title, quizId, stepId, triggerIcon }: PopoverProps) {
-  const addBlock = (blockType: BlockType) => {
-    const newBlock = {
-      quizId: quizId ?? '',
-      stepId: stepId ?? '',
-      type: blockType,
-      data: blockLibrary[blockType].factory(),
-    };
-
-    BlockClient.createBlock(newBlock);
-  };
-
   // interface TriggerBtnProps {
   //   iconOnly?: boolean;
   //   text: string;
