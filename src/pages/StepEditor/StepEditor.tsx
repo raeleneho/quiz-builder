@@ -4,15 +4,16 @@ import { useState } from 'react';
 import StepClient, { Step, stepRoute } from '../../../api/StepClient';
 import { useQuery } from '@tanstack/react-query';
 
-import StepPreview from '../../components/StepPreview';
+import StepPreview from '../../components/StepPreview/StepPreview';
 import { StepEditorProvider } from './StepEditorContext';
 
 import { Box, Button, Flex } from '@chakra-ui/react';
 
 import { BlockClient, BlockType } from '../../../api/BlockClient';
 import { blockLibrary } from '../../components/blocks/BlockLibrary';
-import PopoverModal from '../../components/Popover';
+import PopoverModal from '../../components/NewBlockPopoverModal';
 import EditSideBar from '../../components/EditSideBar';
+import NewBlockPopoverModal from '../../components/NewBlockPopoverModal';
 
 function StepEditor() {
   const { quizId, stepId } = useParams();
@@ -31,15 +32,8 @@ function StepEditor() {
     enabled: !!stepId,
   });
 
-  const addBlock = (blockType: BlockType) => {
-    const newBlock = {
-      quizId: quizId ?? '',
-      stepId: stepId ?? '',
-      type: blockType,
-      data: blockLibrary[blockType].factory(),
-    };
-
-    BlockClient.createBlock(newBlock);
+  const AddBlockBtn = () => {
+    return <Button colorScheme="teal">// Hello // </Button>;
   };
 
   return (
@@ -47,16 +41,7 @@ function StepEditor() {
       <StepEditorProvider stepId={stepId}>
         <Box w="100%" p={6}>
           <Flex>
-            <PopoverModal header="Select block type:">
-              <Flex alignItems="center" justify="space-around" gap="2">
-                <Button size="sm" onClick={() => addBlock(BlockType.INPUT)}>
-                  {BlockType.INPUT}
-                </Button>
-                <Button size="sm" onClick={() => addBlock(BlockType.TEXTAREA)}>
-                  {BlockType.TEXTAREA}
-                </Button>
-              </Flex>
-            </PopoverModal>
+            <NewBlockPopoverModal stepId={stepId} quizId={quizId} />
           </Flex>
           <Box className="step-editor">
             <StepPreview step={step} quizId={quizId ?? ''} />

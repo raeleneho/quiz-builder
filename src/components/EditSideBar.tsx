@@ -5,7 +5,7 @@ import Tabs from './Tabs/Tabs';
 import Tab from './Tabs/Tab';
 import { Divider, Flex } from '@chakra-ui/react';
 import { Step } from '../../api/StepClient';
-import DataDisplay from './DataDisplay';
+import DataPreview from './DataPreview';
 
 interface EditSideBarProps {
   step?: Step | null;
@@ -24,7 +24,7 @@ export function EditSideBar({ step, quizId }: EditSideBarProps) {
       title: 'Block Settings',
       component: () => <BlockSettings stepId={step?.id ?? ''} />,
     },
-    { id: '3', title: 'Data', component: () => <DataDisplay /> },
+    { id: '3', title: 'Data Preview', component: () => <DataPreview /> },
   ];
 
   return (

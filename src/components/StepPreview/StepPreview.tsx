@@ -1,29 +1,15 @@
 import { useQueries } from '@tanstack/react-query';
-import { Block, BlockClient, blockRoute } from '../../api/BlockClient';
-import { Step } from '../../api/StepClient';
-
-// import { BlockRenderer } from "../pages/StepEditor";
-import { BlockInserter } from './BlockInserter';
-
-import { blockLibrary } from './blocks/BlockLibrary';
-import { useStepEditorContext } from '../pages/StepEditor/StepEditorContext';
-import {
-  Box,
-  Container,
-  IconButton,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-  VStack,
-} from '@chakra-ui/react';
+import { Block, BlockClient, blockRoute } from '../../../api/BlockClient';
+import { Step } from '../../../api/StepClient';
+import { BlockInserter } from '../BlockInserter';
+import './StepPreview.css';
+import { blockLibrary } from '../blocks/BlockLibrary';
+import { useStepEditorContext } from '../../pages/StepEditor/StepEditorContext';
+import { Box, VStack } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+import NewBlockPopoverModal from '../NewBlockPopoverModal';
 
 interface BlockRendererProps {
-  // block.id?: string;
   block?: Block | null;
   isSelected?: boolean;
 }
@@ -61,7 +47,7 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
   return (
     <>
       <VStack py={4}>
-        {blocksRes?.map(({ data: block }, index: number) => {
+        {blocksRes?.map(({ data: block }) => {
           const isSelected = stepEditorContext?.selectedBlockId === block?.id;
           return (
             <Box
@@ -73,28 +59,7 @@ function StepPreview({ step, quizId }: StepPreviewProps) {
             >
               <BlockRenderer block={isSelected ? stepEditorContext?.block : block} isSelected={isSelected} />
 
-              <Popover>
-                <PopoverTrigger>
-                  <IconButton
-                    className="inserter-icon"
-                    isRound={true}
-                    colorScheme="teal"
-                    aria-label="insert new block"
-                    fontSize="12px"
-                    size="sm"
-                    icon={<AddIcon />}
-                  />
-                </PopoverTrigger>
-
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverHeader>Select block type:</PopoverHeader>
-                  <PopoverCloseButton />
-                  <PopoverBody>
-                    <BlockInserter position={index} stepId={step?.id ?? ''} quizId={quizId ?? ''} />
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
+              <NewBlockPopoverModal triggerIcon stepId={step?.id} quizId={quizId} />
             </Box>
           );
         })}

@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useStepEditorContext } from '../pages/StepEditor/StepEditorContext';
 
-function DataDisplay() {
+function DataPreview() {
   const stepEditorContext = useStepEditorContext();
   return (
     <Box borderWidth="1px" borderRadius="md" p="4" bgColor="gray.100">
@@ -28,4 +28,4 @@ function DataDisplay() {
   );
 }
 
-export default DataDisplay;
+export default DataPreview;
