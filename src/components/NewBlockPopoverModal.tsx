@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
   forwardRef,
 } from '@chakra-ui/react';
-import React, { ComponentType, FunctionComponent, ReactNode } from 'react';
+import React, { useRef } from 'react';
 import { BlockClient, BlockType } from '../../api/BlockClient';
 import { blockLibrary } from './blocks/BlockLibrary';
 import { AddIcon } from '@chakra-ui/icons';
@@ -27,6 +27,8 @@ interface NewBlockPopoverProps {
 }
 
 function NewBlockPopoverModal({ title, quizId, stepId, triggerIcon, btnText }: NewBlockPopoverProps) {
+  const triggerBtnRef = useRef(null);
+
   interface TriggerBtnProps {
     triggerIcon?: boolean;
     btnText: string;
@@ -55,7 +57,7 @@ function NewBlockPopoverModal({ title, quizId, stepId, triggerIcon, btnText }: N
   return (
     <Popover>
       <PopoverTrigger>
-        <TriggerBtn btnText={btnText} triggerIcon={triggerIcon} />
+        <TriggerBtn ref={triggerBtnRef} btnText={btnText} triggerIcon={triggerIcon} />
         {/* {triggerIcon ? (
           <IconButton
             className="inserter-icon"
