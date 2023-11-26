@@ -1,12 +1,12 @@
 import { useQueries } from '@tanstack/react-query';
 import { Block, BlockClient, blockRoute } from '../../../api/BlockClient';
 import { Step } from '../../../api/StepClient';
-import { BlockInserter } from '../BlockInserter';
+
 import './StepPreview.css';
 import { blockLibrary } from '../blocks/BlockLibrary';
 import { useStepEditorContext } from '../../pages/StepEditor/StepEditorContext';
 import { Box, VStack } from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
+
 import NewBlockPopoverModal from '../NewBlockPopoverModal';
 
 interface BlockRendererProps {

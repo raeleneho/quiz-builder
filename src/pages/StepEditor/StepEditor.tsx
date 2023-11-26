@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import StepPreview from '../../components/StepPreview/StepPreview';
 import { StepEditorProvider } from './StepEditorContext';
 
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, forwardRef } from '@chakra-ui/react';
 
 import { BlockClient, BlockType } from '../../../api/BlockClient';
 import { blockLibrary } from '../../components/blocks/BlockLibrary';
@@ -32,16 +32,12 @@ function StepEditor() {
     enabled: !!stepId,
   });
 
-  const AddBlockBtn = () => {
-    return <Button colorScheme="teal">// Hello // </Button>;
-  };
-
   return (
     <>
       <StepEditorProvider stepId={stepId}>
         <Box w="100%" p={6}>
           <Flex>
-            <NewBlockPopoverModal stepId={stepId} quizId={quizId} />
+            <NewBlockPopoverModal stepId={stepId} quizId={quizId} btnText="Hello" />
           </Flex>
           <Box className="step-editor">
             <StepPreview step={step} quizId={quizId ?? ''} />
