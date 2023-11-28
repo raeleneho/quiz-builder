@@ -22,21 +22,19 @@ The Quiz Builder App empowers you to create personalized quizzes from scratch. W
 To set up the Quiz Builder app on your local machine, follow the instructions below:
 
 1. **Clone the Repository:**
-
    ```bash
    git clone https://github.com/your-username/quiz-builder.git
    cd quiz-builder
    In the project directory, you can run:
-
-    Install dependencies: #####`npm install`
-
-    Run the App: #####`npm run dev`
-
-    Preview the App: #####`npm run preview`
-
-    Build for Production: #####`npm run build`
-
    ```
+
+#####`npm install`
+
+Run the App: #####`npm run dev`
+
+Preview the App: #####`npm run preview`
+
+Build for Production: #####`npm run build`
 
 ###Future Plans
 The Quiz Builder App is currently in its early stages, utilizing client-side storage for simplicity. However, we plan to migrate to a more robust backend architecture using Express, Node.js, and PostgreSQL in the next development phase. This transition will provide enhanced scalability, security, and data management capabilities.
