@@ -1,26 +1,20 @@
-import { useState } from "react";
-import { BlockClient, BlockType } from "../../api/BlockClient";
-import { blockLibrary } from "./blocks/BlockLibrary";
+import { BlockClient, BlockType } from '../../api/BlockClient';
+import { blockLibrary } from './blocks/BlockLibrary';
+import { Button, Flex } from '@chakra-ui/react';
 
 interface BlockInserterProps {
-  position: number;
+  // position: number;
   quizId: string;
   stepId: string;
 }
 
-export const BlockInserter = ({
-  position,
-  stepId,
-  quizId,
-}: BlockInserterProps) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
+export const BlockInserter = ({ stepId, quizId }: BlockInserterProps) => {
   const addBlock = (blockType: BlockType) => {
     const newBlock = {
       quizId,
       stepId,
       type: blockType,
-      position: position,
+      // position: position,
       data: blockLibrary[blockType].factory(),
     };
 
@@ -28,26 +22,14 @@ export const BlockInserter = ({
   };
 
   return (
-    <>
-      <div className="inserter">
-        <div
-          className="inserter-icon"
-          onClick={() => setModalIsOpen(!modalIsOpen)}
-        />
-      </div>
-      {modalIsOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <button onClick={() => setModalIsOpen(false)}>x</button>
-            <button onClick={() => addBlock(BlockType.INPUT)}>
-              {blockLibrary[BlockType.INPUT].inserterOptions.label}
-            </button>
-            <button onClick={() => addBlock(BlockType.TEXTAREA)}>
-              {blockLibrary[BlockType.TEXTAREA].inserterOptions.label}
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+    <Flex justify="space-around" p={2} gap={2}>
+      {Object.keys(blockLibrary).map((block) => {
+        return (
+          <Button aria-label={`select ${block} block`} onClick={() => addBlock(block as BlockType)}>
+            {blockLibrary[block as BlockType].inserterOptions.label}
+          </Button>
+        );
+      })}
+    </Flex>
   );
 };

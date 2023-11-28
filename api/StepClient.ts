@@ -96,7 +96,4 @@ export default {
   getStep,
   deleteStep,
   updateStep
-
-
-
 }

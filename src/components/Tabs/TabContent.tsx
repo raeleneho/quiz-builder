@@ -1,27 +1,15 @@
-import { ReactElement, ReactNode } from "react";
-import { useTabsContext } from "./TabsContext";
-import { TabTitleProps } from "./TabTitle";
+import { ReactNode } from "react";
 
-interface TabProps extends TabTitleProps {
-  component?: ReactNode;
-}
+import { useTabsContext } from "./TabsContext";
 
 interface TabContentProps {
-  content: TabProps[];
+  id: string;
+  children?: ReactNode | ReactNode[];
 }
 
-function TabContent({ content }: TabContentProps) {
-  const tabsContext = useTabsContext();
-
-  const getTabContentById = () => {
-    const tabComponent = content.find(
-      (tab) => tab.id === tabsContext?.selectedTab
-    );
-
-    return tabComponent?.component;
-  };
-
-  return <>{getTabContentById()}</>;
+export function TabContent({ id, children }: TabContentProps) {
+  const tabContext = useTabsContext();
+  return tabContext?.selectedTab === id ? <>{children}</> : <></>;
 }
 
 export default TabContent;
