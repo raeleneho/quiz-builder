@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react";
 import { useStepEditorContext } from "../../pages/StepEditor/StepEditorContext";
 import { FormInput } from "../FormInput";
 
@@ -13,8 +14,8 @@ export const InputBlock = ({
 }: InputBlockProps) => {
   const stepEditorContext = useStepEditorContext();
   return (
-    <div className="input-control">
-      {label && <label>{label}</label>}
+    <Flex alignItems="center" gap="2" p={2}>
+      {label && <label className="form-label">{label}</label>}
 
       <FormInput
         {...defaultAttrs}
@@ -29,6 +30,6 @@ export const InputBlock = ({
 
       {stepEditorContext?.formData?.[fieldName] &&
         stepEditorContext?.formData[fieldName]}
-    </div>
+    </Flex>
   );
 };

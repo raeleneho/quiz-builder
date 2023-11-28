@@ -1,19 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import { useState } from "react";
-import StepClient, { Step, stepRoute } from "../../../api/StepClient";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from 'react';
+import StepClient, { Step, stepRoute } from '../../../api/StepClient';
+import { useQuery } from '@tanstack/react-query';
 
-import { BlockEditor } from "../../components/blocks/BlockEditor";
-import StepPreview from "../../components/StepPreview";
-import { StepEditorProvider } from "./StepEditorContext";
-import Tabs from "../../components/Tabs/Tabs";
-import Tab from "../../components/Tabs/TabTitle";
-import { Divider, Flex } from "@chakra-ui/react";
-import TabTitle from "../../components/Tabs/TabTitle";
-import TabContent from "../../components/Tabs/TabContent";
-import StepSettings from "../../components/StepSettings";
-import { useTabsContext } from "../../components/Tabs/TabsContext";
+import StepPreview from '../../components/StepPreview/StepPreview';
+import { StepEditorProvider } from './StepEditorContext';
+
+import { Box, Button, Flex, forwardRef } from '@chakra-ui/react';
+
+import { BlockClient, BlockType } from '../../../api/BlockClient';
+import { blockLibrary } from '../../components/blocks/BlockLibrary';
+import PopoverModal from '../../components/NewBlockPopoverModal';
+import EditSideBar from '../../components/EditSideBar';
+import NewBlockPopoverModal from '../../components/NewBlockPopoverModal';
 
 function StepEditor() {
   const { quizId, stepId } = useParams();
@@ -32,36 +32,21 @@ function StepEditor() {
     enabled: !!stepId,
   });
 
-  const tabsData = [
-    { id: "1", title: "Step Settings", component: <StepSettings /> },
-    {
-      id: "2",
-      title: "Block Settings",
-      component: <BlockEditor stepId={stepId ?? ""} />,
-    },
-    { id: "3", title: "Data" },
-  ];
-
   return (
-    <div>
+    <>
       <StepEditorProvider stepId={stepId}>
-        <>
-          <StepPreview step={step} quizId={quizId ?? ""} />
+        <Box w="100%" p={6}>
+          <Flex>
+            <NewBlockPopoverModal stepId={stepId} quizId={quizId} btnText="Add Block" />
+          </Flex>
+          <Box className="step-editor">
+            <StepPreview step={step} quizId={quizId ?? ''} />
+          </Box>
+        </Box>
 
-          <Tabs>
-            <Flex justify="flex-start" gap={1}>
-              {tabsData.map((tab) => (
-                <>
-                  <TabTitle key={tab.id} {...tab} />
-                </>
-              ))}
-            </Flex>
-            <TabContent content={tabsData} />
-          </Tabs>
-          {/* <BlockEditor stepId={stepId ?? ""} /> */}
-        </>
+        <EditSideBar step={step} quizId={quizId ?? ''} />
       </StepEditorProvider>
-    </div>
+    </>
   );
 }
 
