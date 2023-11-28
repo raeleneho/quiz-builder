@@ -1,27 +1,43 @@
-# React + TypeScript + Vite
+# Quiz Builder App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+The Quiz Builder App empowers you to create personalized quizzes from scratch. Whether you're a teacher, trainer, or quiz enthusiast, this application provides an intuitive interface for crafting and managing quizzes tailored to your needs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies Used
 
-## Expanding the ESLint configuration
+### Frontend
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React:** A declarative, efficient, and flexible JavaScript library for building user interfaces.
+- **Chakra UI:** A simple component library for building accessible and customizable React applications.
+- **Typescript:** A superset of JavaScript that adds static types, enhancing code quality and developer productivity.
+- **React Query:** A library for managing, caching, and updating server state in React applications.
 
-- Configure the top-level `parserOptions` property like this:
+### Backend (Current Implementation)
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- **Client-Side Storage (localStorage):** The backend of the Quiz Builder App currently utilizes `localStorage` for storing quiz data on the client side. This approach is suitable for small-scale applications and simplifies the setup process.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Getting Started
+
+To set up the Quiz Builder app on your local machine, follow the instructions below:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/quiz-builder.git
+   cd quiz-builder
+   In the project directory, you can run:
+   ```
+
+#####`npm install`
+
+Run the App: #####`npm run dev`
+
+Preview the App: #####`npm run preview`
+
+Build for Production: #####`npm run build`
+
+###Future Plans
+The Quiz Builder App is currently in its early stages, utilizing client-side storage for simplicity. However, we plan to migrate to a more robust backend architecture using Express, Node.js, and PostgreSQL in the next development phase. This transition will provide enhanced scalability, security, and data management capabilities.
+
+License
+This project is licensed under the MIT License.
