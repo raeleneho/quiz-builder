@@ -11,9 +11,8 @@ import {
   PopoverTrigger,
   forwardRef,
 } from '@chakra-ui/react';
-import React, { useRef } from 'react';
-import { BlockClient, BlockType } from '../../api/BlockClient';
-import { blockLibrary } from './blocks/BlockLibrary';
+import { useRef } from 'react';
+
 import { AddIcon } from '@chakra-ui/icons';
 import { BlockInserter } from './BlockInserter';
 
@@ -23,42 +22,43 @@ interface NewBlockPopoverProps {
   stepId?: string;
   triggerIcon?: boolean;
   btnText: string;
-  // TriggerBtn: ComponentType;
 }
 
 function NewBlockPopoverModal({ title, quizId, stepId, triggerIcon, btnText }: NewBlockPopoverProps) {
   const triggerBtnRef = useRef(null);
 
-  interface TriggerBtnProps {
-    triggerIcon?: boolean;
-    btnText: string;
-  }
+  // interface TriggerBtnProps {
+  //   triggerIcon?: boolean;
+  //   btnText: string;
+  // }
 
-  const TriggerBtn = forwardRef((props: TriggerBtnProps, ref) => {
-    return props.triggerIcon ? (
-      <IconButton
-        ref={ref}
-        className="inserter-icon"
-        isRound={true}
-        colorScheme="teal"
-        aria-label="insert new block"
-        fontSize="12px"
-        size="sm"
-        icon={<AddIcon />}
-      />
-    ) : (
-      <Button colorScheme="teal" aria-label="add block">
-        {' '}
-        {props.btnText}
-      </Button>
-    );
-  });
+  // const TriggerBtn = forwardRef((props: TriggerBtnProps, ref) => {
+  //   return props.triggerIcon ? (
+  //     <IconButton
+  //       ref={ref}
+  //       as="button"
+  //       className="inserter-icon"
+  //       isRound={true}
+  //       colorScheme="teal"
+  //       aria-label="insert new block"
+  //       fontSize="12px"
+  //       size="sm"
+  //       icon={<AddIcon />}
+  //     />
+  //   ) : (
+  //     <Button ref={ref} colorScheme="teal" aria-label="add block">
+  //       {' '}
+  //       {props.btnText}
+  //     </Button>
+  //   );
+  // });
 
   return (
     <Popover>
       <PopoverTrigger>
-        <TriggerBtn ref={triggerBtnRef} btnText={btnText} triggerIcon={triggerIcon} />
-        {/* {triggerIcon ? (
+        {/* <TriggerBtn ref={triggerBtnRef} btnText={btnText} triggerIcon={triggerIcon} /> */}
+
+        {triggerIcon ? (
           <IconButton
             className="inserter-icon"
             isRound={true}
@@ -73,7 +73,7 @@ function NewBlockPopoverModal({ title, quizId, stepId, triggerIcon, btnText }: N
             {' '}
             Add Block
           </Button>
-        )} */}
+        )}
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />

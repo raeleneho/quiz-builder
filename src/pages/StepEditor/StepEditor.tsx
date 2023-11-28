@@ -37,7 +37,7 @@ function StepEditor() {
       <StepEditorProvider stepId={stepId}>
         <Box w="100%" p={6}>
           <Flex>
-            <NewBlockPopoverModal stepId={stepId} quizId={quizId} btnText="Hello" />
+            <NewBlockPopoverModal stepId={stepId} quizId={quizId} btnText="Add Block" />
           </Flex>
           <Box className="step-editor">
             <StepPreview step={step} quizId={quizId ?? ''} />
